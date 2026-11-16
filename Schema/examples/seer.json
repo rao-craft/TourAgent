@@ -1,0 +1,64 @@
+{
+  "into": "Components/Tour",
+  "mark": "SeerMark()",
+  "defaultsKey": "seer.tour",
+  "tips": [
+    "seer: Threads | Access your conversation threads and resonance signals. See how your thoughts connect over time. | infinity | leading",
+    "library: Filter by Category | Browse and organize your notes by category. Tap to open the category picker. | line.3.horizontal.decrease.circle | leading",
+    "library: Your Memories | Toggle to view only notes marked as memories — moments worth revisiting. | brain | trailing",
+    "library: Add a Note | Create a new note or import existing content. Your Library, your way. | plus | trailing",
+    "models: Your AI Models | Each card is a personalized model built from your notes and conversations. Tap any to explore, or long-press to generate. | sparkles | center",
+    "models: Your Profile | View your account details and manage your Seer identity. | person | leading",
+    "models: Your Wallet | Track credits earned from your models, see cashout history, and withdraw when ready. | wallet.bifold | trailing"
+  ],
+  "palettes": [
+    "aurora: #21C7AD #612ECC #0D94E6 #73E6A6",
+    "sunrise: #FF9440 #FFD66B #FA6652 #FFF0AD",
+    "lemon: #FAF552 #D9ED2E #FFFF9E #B8EB47",
+    "jelly: #C238EB #611FD1 #EB599E #7A38E6"
+  ],
+  "pages": [
+    "bubble.left.and.bubble.right.fill | sunrise | Threads | Think in conversations. | Each chat is a living thread — ask, explore, return. Seer maintains context within threads so your thinking stays connected over time. | bubble.left.and.bubble.right: Start separate threads for different topics | arrow.clockwise: Return and continue any past conversation | waveform.path.ecg: Resonance tracking shows what you explore most | book.pages: Reading history keeps every session accessible",
+    "note.text | lemon | Notes | Capture what matters. | A private library of thoughts, ideas, and observations. Organized by category, searched instantly, and stored entirely on your device. | note.text: Write and edit notes with rich formatting | folder: Organize by custom categories with colors | lock.fill: Lock individual notes for privacy | magnifyingglass: Instant full-text search across all notes",
+    "eye.fill | aurora | Seer | See how you think. | Seer analyzes your notes and conversations to surface the words, phrases, and themes that define your perspective — rendered as a living cloud. | cloud.fill: Word cloud built entirely from your content | text.bubble.fill: Phrase cloud reveals your recurring ideas | chart.bar.fill: Contribution tracking across time | wand.and.stars: Builds an AI model of how you think",
+    "point.3.connected.trianglepath.dotted | jelly | Atlas | Your memory, mapped. | A spatial graph of how your ideas connect. Atlas uses hierarchical indexing to build a living network of your knowledge — explore clusters and discover hidden links. | point.3.connected.trianglepath.dotted: Interactive graph of all your content | diamond.fill: Clusters group ideas that think alike | hand.pinch: Pinch and pan to navigate the network | sparkles: Connections discovered automatically",
+    "cpu | sunrise | Models | Choose your engine. | Browse and select the AI models that power Seer. Switch between them to match your needs — speed, depth, or specialty. | cpu: Multiple AI model options available | slider.horizontal.3: Switch models globally or per session | info.circle: Detailed model info and capabilities | arrow.triangle.2.circlepath: Updates as new model versions release",
+    "pencil.and.outline | lemon | Write | Compose with intention. | A focused writing environment with a rich keyboard toolbar. Format, structure, and refine your thoughts without leaving your flow. | textformat: Rich text formatting toolbar above keyboard | list.bullet: Lists, headers, and text emphasis | keyboard: Keyboard shortcuts for power users | arrow.up.doc.fill: Export and share your writing easily"
+  ],
+  "strings": [
+    "welcome.title = \"Welcome to Seer\"",
+    "welcome.body = \"Your conversations, organized.\\nYour thoughts, remembered.\"",
+    "welcome.start = \"Show me around\"",
+    "welcome.skip = \"Skip\"",
+    "tip.counter = \"{n} of {count}\"",
+    "tip.next = \"Next\"",
+    "tip.done = \"Got it\"",
+    "about.name = \"About Seer\"",
+    "about.title = \"Everything\\nSeer can do.\"",
+    "about.subtitle = \"A guided tour of every feature,\\nat your own pace.\"",
+    "about.begin = \"Begin the tour\""
+  ],
+  "tuning": [
+    "mark.turn = 42",
+    "welcome.show = spring(0.4, 0.8)",
+    "welcome.skip = easeOut(0.2)",
+    "scrim.opacity = 0.55",
+    "tip.step = spring(0.35, 0.8)",
+    "tip.scale = 0.88",
+    "about.begin = spring(0.4, 0.8)",
+    "about.step = spring(0.35, 0.8)",
+    "about.blend = easeInOut(1.3)",
+    "about.cover = aurora",
+    "gradient.strength = 0.82",
+    "gradient.opacity = 0.9"
+  ],
+  "look": [
+    "accent = Color.accent",
+    "aboutDesign = serif"
+  ],
+  "launch": [
+    "onboarding = welcome",
+    "onboarding.tips = tips(seer)",
+    "about = about"
+  ]
+}

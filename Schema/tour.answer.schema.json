@@ -1,0 +1,92 @@
+{
+  "$id" : "https://github.com/rao-craft/TourAgent/blob/main/Schema/tour.answer.schema.json",
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "allOf" : [
+    {
+      "$ref" : "https://github.com/riteshpakala/Granite/blob/main/Schema/granite-agent-answer.schema.json"
+    }
+  ],
+  "description" : "A granite-answer/1 answer; what tour makes and expects is one of its own kinds.",
+  "properties" : {
+    "expected" : {
+      "items" : {
+        "properties" : {
+          "kind" : {
+            "enum" : [
+              "view",
+              "support"
+            ],
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "kind",
+          "name"
+        ],
+        "type" : "object"
+      },
+      "type" : "array"
+    },
+    "initializers" : {
+      "description" : "each root view's initializer, as a line a page body calls",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    },
+    "keys" : {
+      "description" : "the UserDefaults keys the first run is kept under",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    },
+    "launch" : {
+      "description" : "each launch destination and the state it opens in",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    },
+    "made" : {
+      "items" : {
+        "properties" : {
+          "kind" : {
+            "enum" : [
+              "view",
+              "support"
+            ],
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "kind",
+          "name"
+        ],
+        "type" : "object"
+      },
+      "type" : "array"
+    },
+    "modifier" : {
+      "description" : "the modifier the app applies the first-run layer with, as a line",
+      "type" : [
+        "string",
+        "null"
+      ]
+    },
+    "views" : {
+      "description" : "the views written, by type name",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    }
+  },
+  "title" : "What tour answers (granite-answer/1)"
+}

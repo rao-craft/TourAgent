@@ -1,0 +1,96 @@
+{
+  "$id" : "https://github.com/rao-craft/TourAgent/blob/main/Schema/tour.input.schema.json",
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "description" : "Every field a call to tour may give; `directory` is Craft's, never the model's.",
+  "properties" : {
+    "defaultsKey" : {
+      "description" : "the UserDefaults key the first run is kept under (key.welcomed, key.finished); tour when left out",
+      "type" : "string"
+    },
+    "imports" : {
+      "description" : "modules the views import, such as the one the mark's view or a look name is declared in",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    },
+    "into" : {
+      "description" : "the folder for the views, relative to the project; Components/Tour when left out",
+      "type" : "string"
+    },
+    "launch" : {
+      "description" : "`destination = state` for a `-destination` launch argument: welcome, tips(<tab>), done, about, or about(<page number or name>); any other destination opens with the first run done",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    },
+    "look" : {
+      "description" : "`role = Swift` for a colour or a font, like `accent = Color.accent`; a bare name is Color.name or Font.name, and aboutDesign is serif, rounded, monospaced or default: accent, onAccent, scrim, welcomeTitle, welcomeBody, welcomeButton, welcomeSkip, tipTitle, tipCounter, tipBody, tipButton, aboutDesign, aboutTitle, aboutSubtitle, aboutButton, pageTitle, pageTagline, pageBody, pageRow",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    },
+    "mark" : {
+      "description" : "the app's mark on the welcome card and the pager's cover: a view expression like `AppMark()` (`{size}` in it is the size it is drawn at), or an SF Symbol's name; sparkles when left out",
+      "type" : "string"
+    },
+    "pages" : {
+      "description" : "one line a feature page, after the cover: `symbol | palette | name | tagline | description | row | row …`, each row `symbol: text`; an empty palette takes the cover's",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    },
+    "palettes" : {
+      "description" : "one line a palette the pager's gradient drifts through: `name: #RRGGBB #RRGGBB …`, two to eight colours, the first its base",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    },
+    "parts" : {
+      "description" : "the parts to write, all three when left out: welcome (a card over a scrim the first time the tabs are up), tips (each tab's tips, one card at a time, the first time that tab is up), about (the about pager over a drifting gradient)",
+      "items" : {
+        "enum" : [
+          "welcome",
+          "tips",
+          "about"
+        ],
+        "type" : "string"
+      },
+      "type" : "array"
+    },
+    "prefix" : {
+      "description" : "the types' prefix, Tour when left out: `Kit` writes KitLayer, KitAbout and the modifier .kit(tab:)",
+      "type" : "string"
+    },
+    "strings" : {
+      "description" : "`key = \"text\"` for any word the tour shows (a `\\n` breaks the line): welcome.title, welcome.body, welcome.start, welcome.skip, tip.counter, tip.next, tip.done, tip.back, about.name, about.title, about.subtitle, about.begin, about.close, about.back, about.next, about.done; tip.counter holds {n} and {count}",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    },
+    "tips" : {
+      "description" : "one line a tip, in tour order: `tab: title | body | symbol | place`; tab is the name the app passes for the tab that is up, symbol an SF Symbol, place leading (under the bar's leading control, the default; or topLeading), trailing (or topTrailing), bottomLeading, bottomTrailing or center",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    },
+    "tuning" : {
+      "description" : "`key = value` for a timing (`spring(0.4, 0.8)`, `easeOut(0.2)`), a number or a symbol: mark.turn, welcome.show, welcome.skip, welcome.settle, welcome.mark, welcome.inset, welcome.radius, scrim.opacity, tip.step, tip.settle, tip.swap, tip.scale, tip.width, tip.top, tip.side, tip.bottom, about.begin, about.step, about.blend, about.cover, about.mark, about.markRadius, gradient.speed, gradient.strength, gradient.reach, gradient.drift, gradient.opacity, symbol.back, symbol.forward, symbol.finish, symbol.close, symbol.begin, symbol.row",
+      "items" : {
+        "type" : "string"
+      },
+      "type" : "array"
+    }
+  },
+  "required" : [
+
+  ],
+  "title" : "What tour takes (craft-agent/1)",
+  "type" : "object"
+}

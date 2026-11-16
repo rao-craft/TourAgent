@@ -1,0 +1,35 @@
+{
+  "mark": "RecipeMark()",
+  "defaultsKey": "recipes.tour",
+  "tips": [
+    "recipes: Your Recipes | Everything you have saved, newest first. | book | leading",
+    "recipes: Add a Recipe | Paste a link or write one by hand. | plus | trailing",
+    "plan: This Week | Drag recipes onto days to plan your meals. | calendar | center"
+  ],
+  "palettes": [
+    "citrus: #FFB347 #FF6F61 #FFD56B #F7A072",
+    "garden: #7BC67E #3E9E6F #B8E986 #4FB0A5"
+  ],
+  "pages": [
+    "book.fill | citrus | Recipes | Everything you cook. | Save recipes from anywhere and keep them in one place. | link: Save from any website | pencil: Write your own",
+    "calendar | garden | Plan | A week at a glance. | Drag recipes onto days, and the shopping list writes itself. | cart: A shopping list from your week | clock: Cooking times added up"
+  ],
+  "strings": [
+    "welcome.title = \"Welcome to Recipes\"",
+    "welcome.body = \"Your recipes, in one place.\\nYour week, planned.\"",
+    "about.name = \"About Recipes\"",
+    "about.title = \"Everything\\nRecipes can do.\""
+  ],
+  "tuning": [
+    "tip.scale = 0.9",
+    "about.cover = garden"
+  ],
+  "look": [
+    "accent = Color.orange"
+  ],
+  "launch": [
+    "onboarding = welcome",
+    "onboarding.tips = tips(recipes)",
+    "about = about"
+  ]
+}

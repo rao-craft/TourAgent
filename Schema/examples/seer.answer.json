@@ -1,0 +1,173 @@
+{
+  "agent" : {
+    "word" : "tour"
+  },
+  "expected" : [
+    {
+      "kind" : "view",
+      "name" : "TourLayer"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourWelcomeCard"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourMark"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourTipCard"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourAbout"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourAboutCover"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourAboutPage"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourAboutRow"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourDriftingGradient"
+    }
+  ],
+  "format" : "granite-answer/1",
+  "initializers" : [
+    "TourLayer(tab: String, start: TourLaunch.Start = TourLaunch.start)",
+    "TourAbout(onClose: (() -> Void)? = nil)"
+  ],
+  "keys" : [
+    "seer.tour.welcomed",
+    "seer.tour.finished"
+  ],
+  "launch" : [
+    "onboarding = welcome",
+    "onboarding.tips = tips(seer)",
+    "about = about"
+  ],
+  "made" : [
+    {
+      "kind" : "support",
+      "name" : "TourLook",
+      "path" : "Components/Tour/TourLook.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "support",
+      "name" : "TourLaunch",
+      "path" : "Components/Tour/TourLaunch.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "support",
+      "name" : "TourContent",
+      "path" : "Components/Tour/TourContent.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "support",
+      "name" : "TourHaptics",
+      "path" : "Components/Tour/TourHaptics.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourLayer",
+      "path" : "Components/Tour/TourLayer.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourWelcomeCard",
+      "path" : "Components/Tour/TourWelcomeCard.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourTipCard",
+      "path" : "Components/Tour/TourTipCard.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourMark",
+      "path" : "Components/Tour/TourMark.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourAbout",
+      "path" : "Components/Tour/TourAbout.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourAboutCover",
+      "path" : "Components/Tour/TourAboutCover.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourAboutPage",
+      "path" : "Components/Tour/TourAboutPage.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourAboutRow",
+      "path" : "Components/Tour/TourAboutRow.swift",
+      "state" : "written"
+    },
+    {
+      "kind" : "view",
+      "name" : "TourDriftingGradient",
+      "path" : "Components/Tour/TourDriftingGradient.swift",
+      "state" : "written"
+    }
+  ],
+  "modifier" : ".tour(tab: String)",
+  "notes" : [
+    "Apply `.tour(tab:)` to the app's tab view, passing the tab that is up as the tips name it (`seer`, `library`, `models`): the welcome card shows over it on the first run, then each tab's tips.",
+    "Present `TourAbout()` as a sheet with no detents: it fills the sheet, shows a drag indicator and closes itself with `dismiss`, or calls `onClose` when given one. `TourAbout.name` is its name for the menu item that opens it.",
+    "The app's navigation opens the tab or the sheet each launch destination belongs to (`onboarding`, `onboarding.tips`, `about`); the tour opens its own state there from `TourLaunch`, and any other destination opens with the first run done."
+  ],
+  "path" : "Components/Tour/TourLook.swift",
+  "paths" : [
+    "Components/Tour/TourLook.swift",
+    "Components/Tour/TourLaunch.swift",
+    "Components/Tour/TourContent.swift",
+    "Components/Tour/TourHaptics.swift",
+    "Components/Tour/TourLayer.swift",
+    "Components/Tour/TourWelcomeCard.swift",
+    "Components/Tour/TourTipCard.swift",
+    "Components/Tour/TourMark.swift",
+    "Components/Tour/TourAbout.swift",
+    "Components/Tour/TourAboutCover.swift",
+    "Components/Tour/TourAboutPage.swift",
+    "Components/Tour/TourAboutRow.swift",
+    "Components/Tour/TourDriftingGradient.swift"
+  ],
+  "problems" : [
+
+  ],
+  "views" : [
+    "TourLayer",
+    "TourWelcomeCard",
+    "TourTipCard",
+    "TourMark",
+    "TourAbout",
+    "TourAboutCover",
+    "TourAboutPage",
+    "TourAboutRow",
+    "TourDriftingGradient"
+  ]
+}

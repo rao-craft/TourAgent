@@ -1,0 +1,19 @@
+{
+  "name": "Tour",
+  "tagline": "An app's first-run tour as plain SwiftUI: a welcome card over a scrim, each tab's tips, and an about pager over a drifting gradient.",
+  "category": "developer",
+  "keywords": [
+    "swiftui",
+    "onboarding",
+    "first-run",
+    "tips",
+    "welcome",
+    "about",
+    "granite",
+    "tour"
+  ],
+  "platforms": [
+    "macOS 14"
+  ],
+  "license": "MIT"
+}
