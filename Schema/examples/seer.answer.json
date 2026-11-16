@@ -137,7 +137,7 @@
   "modifier" : ".tour(tab: String)",
   "notes" : [
     "Apply `.tour(tab:)` to the app's tab view, passing the tab that is up as the tips name it (`seer`, `library`, `models`): the welcome card shows over it on the first run, then each tab's tips.",
-    "Present `TourAbout()` as a sheet with no detents: it fills the sheet, shows a drag indicator and closes itself with `dismiss`, or calls `onClose` when given one. `TourAbout.name` is its name for the menu item that opens it.",
+    "Present `TourAbout()` as a sheet with no detents: it fills the sheet, shows a drag indicator, hides the navigation bar of a NavigationStack it is shown in (it draws its own close), and closes itself with `dismiss`, or calls `onClose` when given one. `TourAbout.name` is its name for the menu item that opens it.",
     "The app's navigation opens the tab or the sheet each launch destination belongs to (`onboarding`, `onboarding.tips`, `about`); the tour opens its own state there from `TourLaunch`, and any other destination opens with the first run done."
   ],
   "path" : "Components/Tour/TourLook.swift",

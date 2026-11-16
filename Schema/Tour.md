@@ -173,8 +173,9 @@ the kit's files its parts no longer use, and never a file of the app's.
   or an enum whose raw value is one. It draws over the whole screen, tab bar included, and takes touches only where
   it draws: the welcome's scrim takes all of them, a tip card only its own.
 - **The pager.** `.sheet(isPresented: $about) { TourAbout() }`, with no detents: it fills the sheet, shows a drag
-  indicator, and closes itself with `dismiss`, or calls `onClose` when given one. `TourAbout.name` is its name for
-  the menu item that opens it.
+  indicator, and closes itself with `dismiss`, or calls `onClose` when given one. It draws its own close, so shown
+  inside a host's NavigationStack it hides that stack's bar, title and Close with it. `TourAbout.name` is its name
+  for the menu item that opens it.
 - **The answer's initializers:** `TourLayer(tab: String, start: TourLaunch.Start = TourLaunch.start)` and
   `TourAbout(onClose: (() -> Void)? = nil)`.
 

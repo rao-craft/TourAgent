@@ -204,7 +204,7 @@ public struct TourAgent: GraniteAgentPackage {
                 + (spec.parts.contains(.welcome) ? "the welcome card shows over it on the first run, then each tab's tips." : "each tab's tips show the first time it is up."))
         }
         if spec.parts.contains(.about) {
-            notes.append("Present `\(spec.prefix)About()` as a sheet with no detents: it fills the sheet, shows a drag indicator and closes itself with `dismiss`, or calls `onClose` when given one. `\(spec.prefix)About.name` is its name for the menu item that opens it.")
+            notes.append("Present `\(spec.prefix)About()` as a sheet with no detents: it fills the sheet, shows a drag indicator, hides the navigation bar of a NavigationStack it is shown in (it draws its own close), and closes itself with `dismiss`, or calls `onClose` when given one. `\(spec.prefix)About.name` is its name for the menu item that opens it.")
         }
         if !spec.launch.isEmpty {
             let named = spec.launch.map { "`\($0.destination)`" }.joined(separator: ", ")

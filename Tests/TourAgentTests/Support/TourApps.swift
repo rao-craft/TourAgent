@@ -74,7 +74,17 @@ enum TourApps {
             }
             .tour(tab: tab)
             .sheet(isPresented: $about) {
-                TourAbout(onClose: { about = false })
+                // As a host's sheet page shows it: in a stack of its own, with a title and a Close it hides.
+                NavigationStack {
+                    TourAbout(onClose: { about = false })
+                        .navigationTitle(TourAbout.name)
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Close", systemImage: "xmark") { about = false }
+                            }
+                        }
+                }
+                .presentationDetents([.large])
             }
         }
     }

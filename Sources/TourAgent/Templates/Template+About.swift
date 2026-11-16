@@ -2,6 +2,8 @@
 //        a page a feature over the drifting gradient, and a row of back, page markers and forward.
 //  PIN:  THE PAGER FILLS THE SHEET. A GeometryReader frames the column at the sheet's size, so the close button sits
 //        at the sheet's top and the row of controls above its bottom, with the gradient under everything.
+//  PIN:  IT DRAWS ITS OWN CLOSE, IN CONTENT. Shown inside a host's NavigationStack, it hides that stack's bar (its
+//        title and its Close), so it draws as it does with no host.
 
 extension Template {
     static let about = ##"""
@@ -9,6 +11,7 @@ extension Template {
 
     /// The about pager: a cover, then a page a feature, over a gradient that drifts and blends into each page's
     /// palette. The app presents it as a sheet; it closes by its close button, its last page's button, or a drag.
+    /// It draws its own close, so it hides the navigation bar of a stack it is shown in.
     struct TourAbout: View {
         /// The pager's name, for the menu item or button that opens it.
         static let name = {{s:about.name}}
@@ -60,6 +63,9 @@ extension Template {
                     }
                 }
             }
+            #if os(iOS)
+            .toolbar(.hidden, for: .navigationBar)
+            #endif
         }
 
         private var closeBar: some View {
