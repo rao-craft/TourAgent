@@ -7,18 +7,23 @@ import XCTest
 /// template declares is one a prefix renames.
 final class TemplateTests: XCTestCase {
     /// Every part alone and together, with a mark that turns or keeps still, drawn from a view or a symbol, and a
-    /// gradient whose clock starts at 0 or later and holds or drifts on a destination launch: each call's files land,
-    /// which means each parsed.
+    /// gradient whose clock starts at 0 or later and holds or drifts on a destination launch, and a cover's mark at its
+    /// full opacity and size or fainter and smaller: each call's files land, which means each parsed.
     func testEveryCombinationOfPartsAndFlagsWritesFilesThatParse() throws {
         let partSets: [[TourPart]] = [[.welcome], [.tips], [.about], [.welcome, .tips], [.welcome, .about], [.tips, .about],
                                       [.welcome, .tips, .about]]
         for parts in partSets {
-            var variants = [("AppMark()", "42", "12.5", "false"), ("sparkles", "0", "0", "false")]
-            if parts.contains(.about) { variants += [("AppMark()", "0", "12.5", "true"), ("sparkles", "42", "0", "true")] }
-            for (mark, turn, start, hold) in variants {
+            // mark, mark.turn, gradient.start, gradient.hold, about.mark.opacity, about.mark.scale
+            var variants = [("AppMark()", "42", "12.5", "false", "1", "1"), ("sparkles", "0", "0", "false", "1", "1")]
+            if parts.contains(.about) {
+                variants += [("AppMark()", "0", "12.5", "true", "0.22", "0.76"), ("sparkles", "42", "0", "true", "0.5", "1"),
+                             ("AppMark()", "42", "0", "false", "1", "0.8")]
+            }
+            for (mark, turn, start, hold, opacity, scale) in variants {
                 let input = TourAgent.Input(parts: parts, mark: mark, tips: ["home: Search | Find anything. | magnifyingglass"],
                                             pages: ["map |  | Maps | Find your way. | Offline maps. | location: Where you are"],
-                                            tuning: ["mark.turn = \(turn)", "gradient.start = \(start)", "gradient.hold = \(hold)"])
+                                            tuning: ["mark.turn = \(turn)", "gradient.start = \(start)", "gradient.hold = \(hold)",
+                                                     "about.mark.opacity = \(opacity)", "about.mark.scale = \(scale)"])
                 let result = try Fixture.write(input, into: Fixture.folder())
                 for file in Fixture.all(result.paths) {
                     XCTAssertFalse(file.text.contains("//@"), "\(parts) \(mark): \(file.name) keeps a marker")
@@ -46,6 +51,12 @@ final class TemplateTests: XCTestCase {
                     XCTAssertEqual(gradient.contains("holds"), held, "only gradient.hold writes the hold")
                     XCTAssertEqual(gradient.contains("paused: reduceMotion || Self.holds"), held)
                     XCTAssertEqual(gradient.contains(#"private static let holds = !(TourLaunch.destination ?? "").isEmpty"#), held)
+                }
+                if let cover = try Fixture.text(result.paths, "TourAboutCover.swift", ifAny: parts.contains(.about)) {
+                    XCTAssertTrue(cover.contains(".opacity(appeared ? \(opacity) : 0)"), "the mark fades in to about.mark.opacity")
+                    XCTAssertEqual(cover.contains(".scaleEffect(appeared ? 1 : 0.7)"), scale == "1", "a mark at its full size grows from 0.7")
+                    XCTAssertEqual(cover.contains(".scaleEffect(appeared ? \(scale) : 0.7 * \(scale))"), scale != "1",
+                                   "a smaller mark grows from 0.7 of about.mark.scale")
                 }
             }
         }

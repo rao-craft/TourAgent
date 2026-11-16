@@ -207,6 +207,20 @@ final class LineTests: XCTestCase {
         XCTAssertTrue(reason(TuningValue.parse("1.5", as: scale))?.contains("is 0 to 1") == true)
         XCTAssertTrue(reason(TuningValue.parse("big", as: scale))?.contains("is a number from 0 to 1") == true)
         XCTAssertTrue(reason(TuningValue.parse("X Mark", as: close))?.contains("is an SF Symbol's name") == true)
+        let opacity = try XCTUnwrap(TourTuning.named("about.mark.opacity")), size = try XCTUnwrap(TourTuning.named("about.mark.scale"))
+        let hold = try XCTUnwrap(TourTuning.named("gradient.hold"))
+        let read: [(TourTuningKey, String, String)] = [(opacity, "0.22", "0.22"), (size, "0.76", "0.76"), (opacity, "1", "1"), (size, "0", "0"),
+                                                       (hold, "true", "true"), (hold, "False", "false")]
+        for (key, text, swift) in read {
+            XCTAssertEqual(try TuningValue.parse(text, as: key).get().swift, swift, "\(key.key) = \(text)")
+        }
+        let refused: [(TourTuningKey, String, String)] = [(opacity, "1.2", "`about.mark.opacity` is 0 to 1, not 1.2"),
+                                                          (size, "-0.1", "`about.mark.scale` is 0 to 1, not -0.1"),
+                                                          (size, "small", "`about.mark.scale` is a number from 0 to 1, not `small`"),
+                                                          (hold, "yes", "`gradient.hold` is true or false, not `yes`")]
+        for (key, text, said) in refused {
+            XCTAssertEqual(reason(TuningValue.parse(text, as: key)), said, "\(key.key) = \(text)")
+        }
     }
 
     // MARK: The call as a whole
@@ -227,6 +241,10 @@ final class LineTests: XCTestCase {
                                      .init(destination: "onboarding.tips", state: .tips("seer")),
                                      .init(destination: "about", state: .about(0))])
         XCTAssertEqual(spec.mark, .view("SeerMark()"))
+        XCTAssertEqual(spec.tuning["about.mark.opacity"], .number(0.22))
+        XCTAssertEqual(spec.tuning["about.mark.scale"], .number(0.76))
+        XCTAssertEqual(spec.tuning["gradient.start"], .number(24.41))
+        XCTAssertEqual(spec.tuning["gradient.hold"], .flag(true))
         XCTAssertEqual(spec.defaultsKey, "seer.tour")
         XCTAssertEqual(spec.notes, [], "nothing in the Seer call is read generously")
     }
@@ -238,7 +256,7 @@ final class LineTests: XCTestCase {
             palettes: ["sea: #4FC3F7"],
             pages: ["map | ocean | Maps | Find your way. | Offline maps."],
             strings: ["welcome.heading = \"Hi\"", "tip.next = \"\"", "tip.counter = \"{count} total\"", "welcome.skip = Later", "welcome.skip = Not now"],
-            tuning: ["tip.scale = 2", "tip.size = 3", "about.cover = ocean"],
+            tuning: ["tip.scale = 2", "tip.size = 3", "about.cover = ocean", "about.mark.scale = 1.5"],
             look: ["accentColor = Color.red", "accent = Color.red", "accent = Color.blue"],
             launch: ["onboarding = welcome", "onboarding = done", "tips = tips(home)", "about.far = about(3)", "about.name = about(Nowhere)"],
             defaultsKey: "my key", prefix: "tour", imports: ["Seer Kit"]
@@ -256,6 +274,7 @@ final class LineTests: XCTestCase {
             "strings line 5 `welcome.skip = Not now`: `welcome.skip` is set twice",
             "tuning line 1 `tip.scale = 2`: `tip.scale` is 0 to 1, not 2",
             "tuning line 2 `tip.size = 3`: `tip.size` is not a tuning key",
+            "tuning line 4 `about.mark.scale = 1.5`: `about.mark.scale` is 0 to 1, not 1.5",
             "`about.cover` names `ocean`",
             "look line 1 `accentColor = Color.red`: `accentColor` is not a look role",
             "look line 3 `accent = Color.blue`: `accent` is set twice",

@@ -1,7 +1,9 @@
 //  WHAT: The template of `TourAboutCover.swift`: the pager's first page, the mark over a heading and a line, and the
 //        button that begins the tour, each rising into place as it appears.
 //  PIN:  THE MARK STARTS THE ENTRANCE. Its appearing sets `appeared` on the cover's spring, a tenth of a second late;
-//        the heading and the button follow on the same spring, later still.
+//        the heading and the button follow on the same spring, later still. The mark rises to about.mark.opacity and
+//        about.mark.scale, from clear and 0.7 of that scale; at 1 and 1 the lines are the plain entrance (Seer's call
+//        rests it faint and small, at 0.22 and 0.76, as the original draws it).
 
 extension Template {
     static let aboutCover = ##"""
@@ -21,8 +23,12 @@ extension Template {
 
                 TourMark(size: {{n:about.mark}}, cornerRadius: {{n:about.markRadius}})
                     .shadow(radius: 8)
-                    .opacity(appeared ? 1 : 0)
+                    .opacity(appeared ? {{n:about.mark.opacity}} : 0)
+                    //@if about.mark.scales
+                    .scaleEffect(appeared ? {{n:about.mark.scale}} : 0.7 * {{n:about.mark.scale}})
+                    //@else
                     .scaleEffect(appeared ? 1 : 0.7)
+                    //@endif
                     .onAppear {
                         withAnimation(.spring(response: 0.6, dampingFraction: 0.8).delay(0.1)) {
                             appeared = true

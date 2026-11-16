@@ -72,6 +72,7 @@ struct TourPlan: Sendable {
         if (spec.tuning["mark.turn"]?.number ?? 0) > 0 { flags.insert("turns") }
         if (spec.tuning["gradient.start"]?.number ?? 0) != 0 { flags.insert("gradient.starts") }
         if spec.tuning["gradient.hold"]?.flag == true { flags.insert("gradient.holds") }
+        if (spec.tuning["about.mark.scale"]?.number ?? 1) != 1 { flags.insert("about.mark.scales") }
         switch spec.mark {
         case .view: flags.insert("mark.view")
         case .symbol: flags.insert("mark.symbol")

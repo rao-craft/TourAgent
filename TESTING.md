@@ -14,15 +14,18 @@ TOUR_WRITE_SCHEMA=1 swift test                    # writes the schema files and 
   their rows, launch states, animations, the mark, look values, tuning values; every problem with a call said at
   once; the Seer call read whole with nothing to note.
 - **`TemplateTests`:** every part alone and together, with a mark that turns or keeps still, drawn from a view or a
-  symbol: each call's files parse, with no marker, placeholder or run of blank lines left, and a preview in each
-  view. Every tuning key, string and look role is read by some file; every type a template declares is one a prefix
-  renames.
+  symbol, a gradient that starts later or holds, and a cover's mark fainter and smaller: each call's files parse, with
+  no marker, placeholder or run of blank lines left, and a preview in each view. Every tuning key, string and look
+  role is read by some file; every type a template declares is one a prefix renames.
 - **`TourEmitTests`:** which files each part writes; a prefix renames every type and the modifier but never the
   call's words; the Seer call's output against Seer's scorecard and spec (below); the original's look pinned value
   for value; the same bytes a second time, answered `unchanged`; files a later call no longer asks for taken away and
   the app's own kept; a refused call writes nothing.
 - **`TourAgentTests`:** the record, the schema files, the field notes, the guide's examples, a call through Granite's
   roster as a host makes it, and a refusal reaching the host.
+- **`SameBytesTests`:** additive only. Calls that say none of the newer tuning keys (Seer's call as it stood at
+  67aebc3 and at 56b4cde, the same with the mark's keys at 1, the recipe call and the part calls) are held to the
+  bytes 67aebc3 wrote, by a digest of each file's path and SHA-256.
 - **`TourBuildTests` (gated):** a package of four apps written by the kit, built with `swift build` for the Mac and
   with `xcodebuild` for `generic/platform=iOS Simulator`:
   - **SeerSix** (Swift 6) and **SeerFive** (Swift 5): the Seer call, stand-ins for `Color.accent` and `SeerMark()`,

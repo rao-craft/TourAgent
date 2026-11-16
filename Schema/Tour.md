@@ -119,6 +119,8 @@ A `tuning` line is `key = value`. An animation is `spring(response, damping)`, `
 | `about.cover` | palette | the first palette | the palette behind the cover; the first palette when left out |
 | `about.mark` | number, 16 to 400 | `96` | the mark's size on the cover |
 | `about.markRadius` | number, 0 to 200 | `22` | the corner radius the cover's mark is clipped to |
+| `about.mark.opacity` | number, 0 to 1 | `1` | the opacity the cover's mark fades in to, from clear; below 1 it rests faint |
+| `about.mark.scale` | number, 0 to 1 | `1` | the scale the cover's mark grows to, from 0.7 of it; below 1 it rests small |
 | `gradient.speed` | number, 0 to 10 | `0.0525` | how fast the colours drift: their clock is seconds times this |
 | `gradient.start` | number, 0 to 629 | `0` | where the colours' clock stands as the gradient appears, so each opening starts from the same picture; the picture comes round again every 628.3 |
 | `gradient.hold` | true or false | `false` | whether the colours hold still at gradient.start when the app was launched into a destination, as screenshots and UI tests launch it; a plain launch keeps them drifting |
@@ -194,3 +196,62 @@ pager, and what the call left out).
 
 With an `AgentRefusal` of kind `call`: every line it cannot read, at once, each named by its field, its line number
 and what it accepts, and nothing is written. Fix the lines and call again.
+
+## Changes
+
+Each change made to bring the kit to the original, dated, with the floor reading that asked for it (Seer's measure:
+every agent call run, built, shot on an iPhone beside the original) and the one that measured it. Newest first.
+
+### 2026-11-16 · the cover's mark rests faint and small: `about.mark.opacity`, `about.mark.scale`
+
+Floor r6f, with the gradient held, read about-dark at parity (ΔE 5.4) and about-light at ΔE 6.5 against a bar of 6,
+all of it the mark: the kit drew the full, opaque 96 pt medallion, and the reference's mark is faint and small. The
+original's asset (`logo2_small`) is fully opaque, so the faintness is how the original draws it. Shots of the
+original's About at 3, 7 (the reference), 20 and 40 s after launch, each fitted with the asset composited over the
+gradient on a radial profile, find it faint and about 0.75 to 0.8 of its size at every time, so it is not a 0.6 s
+entrance caught midway:
+
+| Shot | Scale | Opacity |
+| --- | --- | --- |
+| 3 s | 0.73 to 0.77 | 0.15 to 0.23 |
+| the reference's light shot, 7 s | 0.75 | 0.19 |
+| the reference's dark shot, about 9.6 s | 0.77 | 0.27 |
+| 20 to 40 s | about 0.79 | 0.35 to 0.42 |
+
+Two keys, each 0 to 1 and 1 when left out: the cover's entrance rises to them, opacity from 0 to `about.mark.opacity`
+and scale from 0.7 of `about.mark.scale` to `about.mark.scale`. Seer's call sets 0.22 and 0.76, between the
+reference's light and dark shots. A call that leaves them out writes what it wrote before, byte for byte:
+`SameBytesTests` holds Seer's call as it stood at 67aebc3 (and with the two keys at 1), Seer's at 56b4cde, the recipe
+call and the gated build's part calls to the bytes of 67aebc3.
+
+Measured: not yet. The next floor is the first.
+
+### 2026-11-15 · a launch into a destination holds the gradient: `gradient.hold` (67aebc3)
+
+With its clock from 24.05 the gradient read about-light at ΔE 5.9 in r6c (at parity), but 8.0 in r6d, shot while
+other builds ran: the page comes up a variable time after launch, so the colours at the shot still hung on the
+machine's load. With `gradient.hold = true`, a launch with the `destination` default set, as screenshots and UI tests
+launch, holds the colours at `gradient.start` (the timeline pauses); a plain launch drifts as before. Seer holds at
+24.41, the original's clock at the reference's light shot. A call without the key wrote 56b4cde's bytes.
+
+Measured: r6f read about-dark at ΔE 5.4 (at parity) and about-light at 6.5, all of it the mark (above).
+
+### 2026-11-15 · the gradient starts from one picture: `gradient.start` (56b4cde)
+
+r6b read about-light and about-dark at ΔE 17.0 and 14.9 (62% of cells over 10) with every line shown and SSIM 0.96:
+the original's gradient drifts on the wall clock (the date × 0.35 × 0.15), so it has no picture at rest, and its
+reference was shot at 24.41 on that clock (modulo 200π, where the motion repeats), teal-cyan at the top. The kit
+drifted on the wall clock too and caught a blue top. The gradient now starts its clock as it appears, at
+`gradient.start` (0 when left out, and then not written); Seer's 24.05 brought the colours to the reference's picture
+at a shot 7 s after the page appeared. The grabber is the system's and takes its colour from what is under it.
+
+Measured: r6c read about-light at ΔE 5.9, at parity.
+
+### 2026-11-15 · the pager hides a host's navigation bar (dcdc2f3)
+
+In r6a the pager was the body of a sheet page in a NavigationStack, and the host's large "About Seer" title and its
+Close drew over it: the pager's close sat at y 241 instead of 120 and its heading 55 to 61 pt lower. The original's
+About draws its close in content, never in a bar, so `TourAbout` hides the bar of a stack it is shown in (on iOS) and
+draws as it does with no host.
+
+Measured: r6b, the About sheet with no chrome.

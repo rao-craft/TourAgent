@@ -100,7 +100,8 @@ public struct TourAgent: GraniteAgentPackage {
         (seconds a turn, 0 still), welcome.show, welcome.skip, welcome.settle, tip.step, tip.settle, tip.swap, \
         about.begin, about.step and about.blend (animations: `spring(0.4, 0.8)`, `easeOut(0.2)`, `easeIn`, \
         `easeInOut`, `linear`), scrim.opacity, tip.scale, tip.width, tip.top, tip.side, tip.bottom, welcome.mark, \
-        welcome.inset, welcome.radius, about.cover (a palette), about.mark, about.markRadius, gradient.speed, \
+        welcome.inset, welcome.radius, about.cover (a palette), about.mark, about.markRadius, about.mark.opacity and \
+        about.mark.scale (what the cover's mark rises to, 0 to 1: below 1 it rests faint or small), gradient.speed, \
         gradient.start (the colours' clock as the pager opens, so it opens on the same picture each time), \
         gradient.hold (true holds the colours at gradient.start when the app is launched into a destination), \
         gradient.strength, gradient.reach, gradient.drift, gradient.opacity, symbol.back, symbol.forward, symbol.finish, \

@@ -50,6 +50,8 @@ enum TourTuning {
         TourTuningKey(key: "about.cover", kind: .palette, fallback: nil, what: "the palette behind the cover; the first palette when left out"),
         TourTuningKey(key: "about.mark", kind: .number(16, 400), fallback: "96", what: "the mark's size on the cover"),
         TourTuningKey(key: "about.markRadius", kind: .number(0, 200), fallback: "22", what: "the corner radius the cover's mark is clipped to"),
+        TourTuningKey(key: "about.mark.opacity", kind: .number(0, 1), fallback: "1", what: "the opacity the cover's mark fades in to, from clear; below 1 it rests faint"),
+        TourTuningKey(key: "about.mark.scale", kind: .number(0, 1), fallback: "1", what: "the scale the cover's mark grows to, from 0.7 of it; below 1 it rests small"),
         TourTuningKey(key: "gradient.speed", kind: .number(0, 10), fallback: "0.0525", what: "how fast the colours drift: their clock is seconds times this"),
         TourTuningKey(key: "gradient.start", kind: .number(0, 629), fallback: "0", what: "where the colours' clock stands as the gradient appears, so each opening starts from the same picture; the picture comes round again every 628.3"),
         TourTuningKey(key: "gradient.hold", kind: .flag, fallback: "false", what: "whether the colours hold still at gradient.start when the app was launched into a destination, as screenshots and UI tests launch it; a plain launch keeps them drifting"),
