@@ -102,6 +102,7 @@ public struct TourAgent: GraniteAgentPackage {
         `easeInOut`, `linear`), scrim.opacity, tip.scale, tip.width, tip.top, tip.side, tip.bottom, welcome.mark, \
         welcome.inset, welcome.radius, about.cover (a palette), about.mark, about.markRadius, gradient.speed, \
         gradient.start (the colours' clock as the pager opens, so it opens on the same picture each time), \
+        gradient.hold (true holds the colours at gradient.start when the app is launched into a destination), \
         gradient.strength, gradient.reach, gradient.drift, gradient.opacity, symbol.back, symbol.forward, symbol.finish, \
         symbol.close, symbol.begin, symbol.row. Look roles: accent, onAccent, scrim, welcomeTitle, welcomeBody, \
         welcomeButton, welcomeSkip, tipTitle, tipCounter, tipBody, tipButton, aboutDesign, aboutTitle, \
@@ -205,7 +206,10 @@ public struct TourAgent: GraniteAgentPackage {
                 + (spec.parts.contains(.welcome) ? "the welcome card shows over it on the first run, then each tab's tips." : "each tab's tips show the first time it is up."))
         }
         if spec.parts.contains(.about) {
-            notes.append("Present `\(spec.prefix)About()` as a sheet with no detents: it fills the sheet, shows a drag indicator, hides the navigation bar of a NavigationStack it is shown in (it draws its own close), and closes itself with `dismiss`, or calls `onClose` when given one. `\(spec.prefix)About.name` is its name for the menu item that opens it.")
+            let held = spec.tuning["gradient.hold"]?.flag == true
+                ? " Launched into a destination, as screenshots and UI tests launch it, its gradient holds still at its first picture; a plain launch drifts."
+                : ""
+            notes.append("Present `\(spec.prefix)About()` as a sheet with no detents: it fills the sheet, shows a drag indicator, hides the navigation bar of a NavigationStack it is shown in (it draws its own close), and closes itself with `dismiss`, or calls `onClose` when given one. `\(spec.prefix)About.name` is its name for the menu item that opens it." + held)
         }
         if !spec.launch.isEmpty {
             let named = spec.launch.map { "`\($0.destination)`" }.joined(separator: ", ")

@@ -46,7 +46,8 @@ Every field may be left out.
 
 **A palette:** `name: #RRGGBB #RRGGBB …`, two to eight colours; the first is the gradient's base, and each drifts
 over it. `#2CA` and `0x21C7AD` are read too. Written as `Color(red:green:blue:)`, three places a channel. The drift
-runs on the gradient's own clock, from `gradient.start` as the pager opens, so it opens on the same picture each time.
+runs on the gradient's own clock, from `gradient.start` as the pager opens, so it opens on the same picture each time;
+with `gradient.hold = true`, a launch into a destination keeps it at that picture.
 - `aurora: #21C7AD #612ECC #0D94E6 #73E6A6`
 
 **A feature page:** `symbol | palette | name | tagline | description | row | row …`.
@@ -120,6 +121,7 @@ A `tuning` line is `key = value`. An animation is `spring(response, damping)`, `
 | `about.markRadius` | number, 0 to 200 | `22` | the corner radius the cover's mark is clipped to |
 | `gradient.speed` | number, 0 to 10 | `0.0525` | how fast the colours drift: their clock is seconds times this |
 | `gradient.start` | number, 0 to 629 | `0` | where the colours' clock stands as the gradient appears, so each opening starts from the same picture; the picture comes round again every 628.3 |
+| `gradient.hold` | true or false | `false` | whether the colours hold still at gradient.start when the app was launched into a destination, as screenshots and UI tests launch it; a plain launch keeps them drifting |
 | `gradient.strength` | number, 0 to 1 | `0.82` | each colour's opacity at its centre, fading to clear |
 | `gradient.reach` | number, 0 to 4 | `0.85` | how far each colour reaches, as a share of the longer side |
 | `gradient.drift` | number, 0 to 1 | `0.38` | how far each colour's centre wanders from the middle |

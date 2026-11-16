@@ -49,7 +49,8 @@
     "about.step = spring(0.35, 0.8)",
     "about.blend = easeInOut(1.3)",
     "about.cover = aurora",
-    "gradient.start = 24.05",
+    "gradient.start = 24.41",
+    "gradient.hold = true",
     "gradient.strength = 0.82",
     "gradient.opacity = 0.9"
   ],

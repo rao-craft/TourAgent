@@ -2,9 +2,10 @@
 //        first a base and each a radial gradient drifting around the middle.
 //  PIN:  THE COLOURS START FROM ONE PICTURE. Their clock stands at gradient.start as the gradient appears and runs
 //        from there, never from the wall clock, so each opening (and a shot taken a set time after it) shows the same
-//        colours. A new palette is animated in by its owner: the pager changes `colors` inside
-//        `withAnimation(about.blend)`, and the gradient only draws what it is given. With Reduce Motion on, the
-//        colours stay at their first picture.
+//        colours. With gradient.hold, a launch into a destination (as screenshots and UI tests launch) keeps them at
+//        that picture however long the page took to come up; a plain launch drifts. A new palette is animated in by
+//        its owner: the pager changes `colors` inside `withAnimation(about.blend)`, and the gradient only draws what
+//        it is given. With Reduce Motion on, the colours stay at their first picture.
 
 extension Template {
     static let driftingGradient = ##"""
@@ -12,6 +13,9 @@ extension Template {
 
     /// A gradient drawn again every frame: its first colour as a base, and over it a radial gradient from each colour
     /// to clear, whose centres drift slowly around the middle. Each time it appears it starts from the same picture.
+    //@if gradient.holds
+    /// Launched into a destination, as screenshots and UI tests launch the app, it holds still at that picture.
+    //@endif
     struct TourDriftingGradient: View {
         var colors: [Color]
 
@@ -20,16 +24,31 @@ extension Template {
         @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
         var body: some View {
+            //@if gradient.holds
+            TimelineView(.animation(minimumInterval: nil, paused: reduceMotion || Self.holds)) { timeline in
+                //@if gradient.starts
+                let time = Self.holds ? {{n:gradient.start}} : {{n:gradient.start}} + timeline.date.timeIntervalSince(start) * {{n:gradient.speed}}
+                //@else
+                let time = Self.holds ? 0 : timeline.date.timeIntervalSince(start) * {{n:gradient.speed}}
+                //@endif
+            //@else
             TimelineView(.animation(minimumInterval: nil, paused: reduceMotion)) { timeline in
                 //@if gradient.starts
                 let time = {{n:gradient.start}} + timeline.date.timeIntervalSince(start) * {{n:gradient.speed}}
                 //@else
                 let time = timeline.date.timeIntervalSince(start) * {{n:gradient.speed}}
                 //@endif
+            //@endif
                 TourGradientBlobs(colors: colors, time: time)
             }
             .accessibilityHidden(true)
         }
+        //@if gradient.holds
+
+        /// Whether the colours hold still: the app was launched into a destination, so a shot shows the same picture
+        /// however long the page took to come up. Read once, at the first drawing.
+        private static let holds = !(TourLaunch.destination ?? "").isEmpty
+        //@endif
     }
 
     /// The gradient at one moment: the base, and a blob a colour.

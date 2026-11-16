@@ -81,7 +81,7 @@
       "type" : "array"
     },
     "tuning" : {
-      "description" : "`key = value` for a timing (`spring(0.4, 0.8)`, `easeOut(0.2)`), a number or a symbol: mark.turn, welcome.show, welcome.skip, welcome.settle, welcome.mark, welcome.inset, welcome.radius, scrim.opacity, tip.step, tip.settle, tip.swap, tip.scale, tip.width, tip.top, tip.side, tip.bottom, about.begin, about.step, about.blend, about.cover, about.mark, about.markRadius, gradient.speed, gradient.start, gradient.strength, gradient.reach, gradient.drift, gradient.opacity, symbol.back, symbol.forward, symbol.finish, symbol.close, symbol.begin, symbol.row",
+      "description" : "`key = value` for a timing (`spring(0.4, 0.8)`, `easeOut(0.2)`), a number or a symbol: mark.turn, welcome.show, welcome.skip, welcome.settle, welcome.mark, welcome.inset, welcome.radius, scrim.opacity, tip.step, tip.settle, tip.swap, tip.scale, tip.width, tip.top, tip.side, tip.bottom, about.begin, about.step, about.blend, about.cover, about.mark, about.markRadius, gradient.speed, gradient.start, gradient.hold, gradient.strength, gradient.reach, gradient.drift, gradient.opacity, symbol.back, symbol.forward, symbol.finish, symbol.close, symbol.begin, symbol.row",
       "items" : {
         "type" : "string"
       },

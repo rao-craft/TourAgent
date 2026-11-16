@@ -71,6 +71,7 @@ struct TourPlan: Sendable {
         if spec.layer { flags.insert("layer") }
         if (spec.tuning["mark.turn"]?.number ?? 0) > 0 { flags.insert("turns") }
         if (spec.tuning["gradient.start"]?.number ?? 0) != 0 { flags.insert("gradient.starts") }
+        if spec.tuning["gradient.hold"]?.flag == true { flags.insert("gradient.holds") }
         switch spec.mark {
         case .view: flags.insert("mark.view")
         case .symbol: flags.insert("mark.symbol")
@@ -88,6 +89,7 @@ struct TourPlan: Sendable {
             case .animation: values["a:" + key] = value.swift
             case .symbol: values["y:" + key] = value.swift
             case .palette: values["p:" + key] = value.swift
+            case .flag: break  // a flag chooses a template's blocks (flags above) and fills nothing
             }
         }
         values["x:modifier"] = SwiftName.lowerCamel(spec.prefix)

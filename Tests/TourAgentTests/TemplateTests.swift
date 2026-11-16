@@ -7,15 +7,18 @@ import XCTest
 /// template declares is one a prefix renames.
 final class TemplateTests: XCTestCase {
     /// Every part alone and together, with a mark that turns or keeps still, drawn from a view or a symbol, and a
-    /// gradient whose clock starts at 0 or later: each call's files land, which means each parsed.
+    /// gradient whose clock starts at 0 or later and holds or drifts on a destination launch: each call's files land,
+    /// which means each parsed.
     func testEveryCombinationOfPartsAndFlagsWritesFilesThatParse() throws {
         let partSets: [[TourPart]] = [[.welcome], [.tips], [.about], [.welcome, .tips], [.welcome, .about], [.tips, .about],
                                       [.welcome, .tips, .about]]
         for parts in partSets {
-            for (mark, turn, start) in [("AppMark()", "42", "12.5"), ("sparkles", "0", "0")] {
+            var variants = [("AppMark()", "42", "12.5", "false"), ("sparkles", "0", "0", "false")]
+            if parts.contains(.about) { variants += [("AppMark()", "0", "12.5", "true"), ("sparkles", "42", "0", "true")] }
+            for (mark, turn, start, hold) in variants {
                 let input = TourAgent.Input(parts: parts, mark: mark, tips: ["home: Search | Find anything. | magnifyingglass"],
                                             pages: ["map |  | Maps | Find your way. | Offline maps. | location: Where you are"],
-                                            tuning: ["mark.turn = \(turn)", "gradient.start = \(start)"])
+                                            tuning: ["mark.turn = \(turn)", "gradient.start = \(start)", "gradient.hold = \(hold)"])
                 let result = try Fixture.write(input, into: Fixture.folder())
                 for file in Fixture.all(result.paths) {
                     XCTAssertFalse(file.text.contains("//@"), "\(parts) \(mark): \(file.name) keeps a marker")
@@ -31,10 +34,18 @@ final class TemplateTests: XCTestCase {
                     XCTAssertEqual(mark.contains("AppMark()"), input.mark == "AppMark()")
                 }
                 if let gradient = try Fixture.text(result.paths, "TourDriftingGradient.swift", ifAny: parts.contains(.about)) {
-                    XCTAssertEqual(gradient.contains("let time = 12.5 + timeline.date.timeIntervalSince(start) * 0.0525"), start != "0",
+                    let held = hold == "true"
+                    XCTAssertEqual(gradient.contains("let time = 12.5 + timeline.date.timeIntervalSince(start) * 0.0525"), start != "0" && !held,
                                    "the colours' clock starts at gradient.start")
-                    XCTAssertEqual(gradient.contains("let time = timeline.date.timeIntervalSince(start) * 0.0525"), start == "0",
+                    XCTAssertEqual(gradient.contains("let time = timeline.date.timeIntervalSince(start) * 0.0525"), start == "0" && !held,
                                    "a clock that starts at 0 is written without it")
+                    XCTAssertEqual(gradient.contains("let time = Self.holds ? 12.5 : 12.5 + timeline.date.timeIntervalSince(start) * 0.0525"),
+                                   start != "0" && held, "a held gradient stands at gradient.start")
+                    XCTAssertEqual(gradient.contains("let time = Self.holds ? 0 : timeline.date.timeIntervalSince(start) * 0.0525"),
+                                   start == "0" && held, "a held gradient whose clock starts at 0")
+                    XCTAssertEqual(gradient.contains("holds"), held, "only gradient.hold writes the hold")
+                    XCTAssertEqual(gradient.contains("paused: reduceMotion || Self.holds"), held)
+                    XCTAssertEqual(gradient.contains(#"private static let holds = !(TourLaunch.destination ?? "").isEmpty"#), held)
                 }
             }
         }
@@ -59,6 +70,7 @@ final class TemplateTests: XCTestCase {
             case .animation: read = templates.contains("{{a:\(key.key)}}")
             case .symbol: read = templates.contains("{{y:\(key.key)}}") || key.key == "symbol.row"
             case .palette: read = key.key == "about.cover"
+            case .flag: read = templates.contains("//@if \(key.key)s")
             }
             XCTAssertTrue(read, "no file reads tuning \(key.key)")
         }

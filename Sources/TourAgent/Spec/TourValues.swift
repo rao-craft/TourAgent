@@ -34,6 +34,7 @@ enum TuningValue: Equatable, Sendable {
     case animation(TourAnimation)
     case symbol(String)
     case palette(String)
+    case flag(Bool)
 
     /// The Swift the views write for it.
     var swift: String {
@@ -42,11 +43,17 @@ enum TuningValue: Equatable, Sendable {
         case .animation(let animation): return animation.swift
         case .symbol(let name): return SwiftLiteral.string(name)
         case .palette(let name): return "." + name
+        case .flag(let on): return on ? "true" : "false"
         }
     }
 
     var number: Double? {
         if case .number(let value) = self { return value }
+        return nil
+    }
+
+    var flag: Bool? {
+        if case .flag(let on) = self { return on }
         return nil
     }
 
@@ -75,6 +82,12 @@ enum TuningValue: Equatable, Sendable {
                 return .failure(LineError("`\(key.key)` names one of the call's palettes, like `aurora`, not `\(raw)`"))
             }
             return .success(.palette(name))
+        case .flag:
+            switch text.lowercased() {
+            case "true": return .success(.flag(true))
+            case "false": return .success(.flag(false))
+            default: return .failure(LineError("`\(key.key)` is true or false, not `\(raw)`"))
+            }
         }
     }
 }
