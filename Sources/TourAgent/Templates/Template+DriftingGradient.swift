@@ -1,22 +1,31 @@
 //  WHAT: The template of `TourDriftingGradient.swift`: a gradient drawn again every frame from a few colours, the
 //        first a base and each a radial gradient drifting around the middle.
-//  PIN:  A NEW PALETTE IS ANIMATED IN BY ITS OWNER. The pager changes `colors` inside `withAnimation(about.blend)`;
-//        the gradient only draws what it is given. With Reduce Motion on, the colours stop drifting.
+//  PIN:  THE COLOURS START FROM ONE PICTURE. Their clock stands at gradient.start as the gradient appears and runs
+//        from there, never from the wall clock, so each opening (and a shot taken a set time after it) shows the same
+//        colours. A new palette is animated in by its owner: the pager changes `colors` inside
+//        `withAnimation(about.blend)`, and the gradient only draws what it is given. With Reduce Motion on, the
+//        colours stay at their first picture.
 
 extension Template {
     static let driftingGradient = ##"""
     import SwiftUI
 
     /// A gradient drawn again every frame: its first colour as a base, and over it a radial gradient from each colour
-    /// to clear, whose centres drift slowly around the middle.
+    /// to clear, whose centres drift slowly around the middle. Each time it appears it starts from the same picture.
     struct TourDriftingGradient: View {
         var colors: [Color]
 
+        /// When it appeared: the colours' clock runs from here.
+        @State private var start = Date.now
         @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
         var body: some View {
             TimelineView(.animation(minimumInterval: nil, paused: reduceMotion)) { timeline in
-                let time = timeline.date.timeIntervalSinceReferenceDate * {{n:gradient.speed}}
+                //@if gradient.starts
+                let time = {{n:gradient.start}} + timeline.date.timeIntervalSince(start) * {{n:gradient.speed}}
+                //@else
+                let time = timeline.date.timeIntervalSince(start) * {{n:gradient.speed}}
+                //@endif
                 TourGradientBlobs(colors: colors, time: time)
             }
             .accessibilityHidden(true)

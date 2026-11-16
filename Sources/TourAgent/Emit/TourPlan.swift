@@ -70,6 +70,7 @@ struct TourPlan: Sendable {
         var flags = Set(spec.parts.map { "part." + $0.rawValue })
         if spec.layer { flags.insert("layer") }
         if (spec.tuning["mark.turn"]?.number ?? 0) > 0 { flags.insert("turns") }
+        if (spec.tuning["gradient.start"]?.number ?? 0) != 0 { flags.insert("gradient.starts") }
         switch spec.mark {
         case .view: flags.insert("mark.view")
         case .symbol: flags.insert("mark.symbol")

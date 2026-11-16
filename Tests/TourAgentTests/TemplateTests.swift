@@ -6,16 +6,16 @@ import XCTest
 /// no marker or placeholder left; every key, string and role a call can set is read by some file; every type a
 /// template declares is one a prefix renames.
 final class TemplateTests: XCTestCase {
-    /// Every part alone and together, with a mark that turns or keeps still, drawn from a view or a symbol: each
-    /// call's files land, which means each parsed.
+    /// Every part alone and together, with a mark that turns or keeps still, drawn from a view or a symbol, and a
+    /// gradient whose clock starts at 0 or later: each call's files land, which means each parsed.
     func testEveryCombinationOfPartsAndFlagsWritesFilesThatParse() throws {
         let partSets: [[TourPart]] = [[.welcome], [.tips], [.about], [.welcome, .tips], [.welcome, .about], [.tips, .about],
                                       [.welcome, .tips, .about]]
         for parts in partSets {
-            for (mark, turn) in [("AppMark()", "42"), ("sparkles", "0")] {
+            for (mark, turn, start) in [("AppMark()", "42", "12.5"), ("sparkles", "0", "0")] {
                 let input = TourAgent.Input(parts: parts, mark: mark, tips: ["home: Search | Find anything. | magnifyingglass"],
                                             pages: ["map |  | Maps | Find your way. | Offline maps. | location: Where you are"],
-                                            tuning: ["mark.turn = \(turn)"])
+                                            tuning: ["mark.turn = \(turn)", "gradient.start = \(start)"])
                 let result = try Fixture.write(input, into: Fixture.folder())
                 for file in Fixture.all(result.paths) {
                     XCTAssertFalse(file.text.contains("//@"), "\(parts) \(mark): \(file.name) keeps a marker")
@@ -29,6 +29,12 @@ final class TemplateTests: XCTestCase {
                 if let mark {
                     XCTAssertEqual(mark.contains("rotationEffect"), turn != "0", "the mark turns only when mark.turn is more than 0")
                     XCTAssertEqual(mark.contains("AppMark()"), input.mark == "AppMark()")
+                }
+                if let gradient = try Fixture.text(result.paths, "TourDriftingGradient.swift", ifAny: parts.contains(.about)) {
+                    XCTAssertEqual(gradient.contains("let time = 12.5 + timeline.date.timeIntervalSince(start) * 0.0525"), start != "0",
+                                   "the colours' clock starts at gradient.start")
+                    XCTAssertEqual(gradient.contains("let time = timeline.date.timeIntervalSince(start) * 0.0525"), start == "0",
+                                   "a clock that starts at 0 is written without it")
                 }
             }
         }

@@ -100,8 +100,9 @@ public struct TourAgent: GraniteAgentPackage {
         (seconds a turn, 0 still), welcome.show, welcome.skip, welcome.settle, tip.step, tip.settle, tip.swap, \
         about.begin, about.step and about.blend (animations: `spring(0.4, 0.8)`, `easeOut(0.2)`, `easeIn`, \
         `easeInOut`, `linear`), scrim.opacity, tip.scale, tip.width, tip.top, tip.side, tip.bottom, welcome.mark, \
-        welcome.inset, welcome.radius, about.cover (a palette), about.mark, about.markRadius, gradient.speed, gradient.strength, \
-        gradient.reach, gradient.drift, gradient.opacity, symbol.back, symbol.forward, symbol.finish, \
+        welcome.inset, welcome.radius, about.cover (a palette), about.mark, about.markRadius, gradient.speed, \
+        gradient.start (the colours' clock as the pager opens, so it opens on the same picture each time), \
+        gradient.strength, gradient.reach, gradient.drift, gradient.opacity, symbol.back, symbol.forward, symbol.finish, \
         symbol.close, symbol.begin, symbol.row. Look roles: accent, onAccent, scrim, welcomeTitle, welcomeBody, \
         welcomeButton, welcomeSkip, tipTitle, tipCounter, tipBody, tipButton, aboutDesign, aboutTitle, \
         aboutSubtitle, aboutButton, pageTitle, pageTagline, pageBody, pageRow; one left out keeps the system's \

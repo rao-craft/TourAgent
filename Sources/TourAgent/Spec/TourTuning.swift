@@ -49,6 +49,7 @@ enum TourTuning {
         TourTuningKey(key: "about.mark", kind: .number(16, 400), fallback: "96", what: "the mark's size on the cover"),
         TourTuningKey(key: "about.markRadius", kind: .number(0, 200), fallback: "22", what: "the corner radius the cover's mark is clipped to"),
         TourTuningKey(key: "gradient.speed", kind: .number(0, 10), fallback: "0.0525", what: "how fast the colours drift: their clock is seconds times this"),
+        TourTuningKey(key: "gradient.start", kind: .number(0, 629), fallback: "0", what: "where the colours' clock stands as the gradient appears, so each opening starts from the same picture; the picture comes round again every 628.3"),
         TourTuningKey(key: "gradient.strength", kind: .number(0, 1), fallback: "0.82", what: "each colour's opacity at its centre, fading to clear"),
         TourTuningKey(key: "gradient.reach", kind: .number(0, 4), fallback: "0.85", what: "how far each colour reaches, as a share of the longer side"),
         TourTuningKey(key: "gradient.drift", kind: .number(0, 1), fallback: "0.38", what: "how far each colour's centre wanders from the middle"),
